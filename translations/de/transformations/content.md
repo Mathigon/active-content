@@ -4,6 +4,7 @@
 
 > id: intro
 > section: introduction
+> description: Symmetrie kann man überall in der Natur sehen - aber sie liegt auch völlig unsichtbaren Naturgesetzen zugrunde. Die Mathematik kann erklären, warum das so ist. 
 > color: "#2274E8"
 > level: Intermediate
 > next: triangles
@@ -13,11 +14,12 @@ wurden von Mathematikern "erfunden". Symmetrie hingegen ist überall
 um uns herum. Fast alle Pflanzen, Tiere und sogar wir Menschen sind symmetrisch.
 
 ::: column(width=200)
-    x-img(src="images/butterfly.jpg" width=200 height=200 lightbox)
+    x-img(src="images/butterfly.jpg" width=200 height=200 lightbox alt="Schmetterling")
 ::: column(width=200)
-    x-img(src="images/lion.jpg" width=200 height=200 lightbox)
+    x-img(src="images/lion.jpg" width=200 height=200 lightbox alt="Löwe")
 ::: column(width=200)
-    x-img(src="images/starfish.jpg" width=200 height=200 lightbox)
+    x-img(src="images/starfish.jpg" width=200 height=200 lightbox alt="Seestern")
+
 :::
 
 Im Laufe der Zeit haben wir die Symmetrie der Natur in Kunst, Architektur, Technologie
@@ -684,8 +686,8 @@ Fallen dir noch andere Beispiele für Palindrome ein?
 Wenn wir Leerzeichen und Interpunktion ignorieren, sind auch die kurzen Sätze unten
 spiegelsymmetrisch. Fallen dir eigene Beispiele ein?
 
-{.text-center} Ein Esel lese nie.
-Sei mein, [[nie]] fies - sei fein, nie mies.
+{.text-center} Ein Esel lese nie.<br>
+Sei mein, [[nie]] fies - sei fein, nie mies.<br>
 Trug Tim eine so helle Hose nie [[mit]] Gurt?
 
 {.reveal(when="blank-0 blank-1")} Aber Palindrome machen nicht nur Spaß, sie haben
@@ -1284,5 +1286,209 @@ Bild [[größer|kleiner]] als das Original.
 
 > section: similarity
 > sectionStatus: dev
+> id: similarity
 
-TODO
+::: column.grow
+Bei starren Transformationen ist das Bild immer [[kongruent|größer|kleiner]] als das Original - für Streckungen gilt das aber [[nicht mehr|auch]]. Stattdessen sagen wir, dass zwei Formen [__ähnlich__](gloss:similar) sind. Sie haben im zwar die gleiche
+Form, aber nicht unbedingt die gleiche Größe.
+
+Das Symbol für Ähnlichkeit ist `∼` (ähnlich wie das Symbol für Kongruenz, also `≅`). In diesem Beispiel würden wir `A ∼ A'` schreiben.
+
+::: column(width=240)
+{.todo} COMING SOON – Illustration
+:::
+
+---
+> id: perspective
+
+### Perspective Drawings
+
+You might have noticed that these dilations with the connecting rays almost look
+like __perspective drawings__. The center of dilation is called the __vanishing
+point__, because it looks like this is where everything is “vanishing in the
+distance”.
+
+Find the vanishing point in the figure below:
+
+{.todo} COMING SOON – Interactive
+
+Now can you draw another house that matches the existing ones?
+
+---
+> id: similar-polygons
+
+### Similar Polygons
+
+Similarity can tell us a lot about shapes. For example, [circles](gloss:circle),
+[squares](gloss:square) and [equilateral triangles](gloss:equilateral-triangle)
+are [[always|sometimes|never]] similar. They might have different sizes, but
+always the same general shape.
+
+::: column.grow
+The two quadrilaterals on the right are similar. Our first important observation
+is that in similar polygons, all the matching pairs of angles are
+[congruent](gloss:congruent-angles). This means that
+
+{.text-center} [_{.m-red}∡ABC_ ≅ _{.m-red}∡A'B'C'_](target:a)_{.space}_
+[_{.m-blue}∡BCD_ ≅ _{.m-blue}∡B'C'D'_](target:b)
+[_{.m-green}∡CDE_ ≅ _{.m-green}∡C'D'E'_](target:c)_{.space}_
+[_{.m-yellow}∡DEA_ ≅ _{.m-yellow}∡D'E'A'_](target:d)
+
+The second important fact is that in similar polygons, all sides are scaled
+__proportionally__ by the scale factor of the corresponding dilation. If the
+scale factor is ${k}{k|1.5|0.5,2,0.1}, then
+
+{.text-center} `abs(AB) ×` ${k} `= abs(A'B')`_{.space}_`abs(BC) ×` ${k} `= abs(B'C')`
+`abs(CD) ×` ${k} `= abs(C'D')`_{.space}_`abs(DE) ×` ${k} `= abs(D'E')`
+
+We can instead rearrange these equations and eliminate the scale factor
+entirely:
+
+{.text-center} `abs(AB)/abs(A'B') = abs(BC)/abs(B'C') = abs(AB)/abs(A'B') = abs(AB)/abs(A'B')`
+
+    // This proportional relationship is true not just for the sides of the
+    // polygon, but also for properties like diagonals.
+
+We can use this to solve real life problems that involve similar polygons – for
+example finding the length of missing sides, if we know some of the other sides.
+In the following section you will see a few examples.
+::: column(width=240)
+
+    x-geopad.sticky(width=240 height=360): svg
+      - var x = ['a', 'b', 'c', 'd']
+      - var initial = {a:[50,70], b:[160,50], c:[200,110], d:[150,160]}
+      - var next = {a:'b', b:'c', c:'d', d:'a'}
+      - var prev = {a:'d', b:'a', c:'b', d:'c'}
+      - var classes = {a:'red', b:'blue', c:'green', d:'yellow'}
+      each l in x
+        circle(name=l x=`point(${initial[l][0]},${initial[l][1]})` r=4 target=l)
+        path(x=`angle(${prev[l]},${l},${next[l]})` target=l class=classes[l])
+        path(x=`segment(${l},${next[l]})` target=`${l} ${next[l]}`)
+        circle(name=l+'1' r=4 x=`${l}.subtract({x:120,y:90}).scale(k).rotate(3).add({x:120,y:270})` target=l)
+        path(x=`angle(${prev[l]}1,${l}1,${next[l]}1)` target=l class=classes[l])
+        path(x=`segment(${l}1,${next[l]}1)` target=`${l} ${next[l]}`)
+:::
+
+---
+> id: similar-triangles
+
+### Similar Triangles
+
+The concept of similarity is particularly powerful with triangles. We already
+know that the corresponding internal angles in similar polygons are equal.
+
+For triangles, the opposite is also true: this means that if you have two
+triangles with the same three angle sizes, then the triangles must be similar.
+
+And it gets even better! We know that the internal angles in a triangle always
+add up to [[180]]°. This means that if we know two angles in a triangle, we can
+always work out the third one.
+
+For similarity, this means that we also just need to check _two angles_ to
+determine if triangles are similar. If two triangles have two angles of the same
+size, then the third angle must also be the same in both.
+
+This result is sometimes called the [__AA Similarity Condition__](gloss:triangle-aa)
+for triangles. (The two _As_ stand for the two _angles_ we compare.)
+
+::: .theorem
+If two angles in one triangle are congruent to two angles in another triangle,
+the two triangles are similar.
+:::
+
+---
+> id: similar-triangles-1
+
+Let’s have a look at a few examples where this is useful:
+
+::: column(width=320)
+{.todo} COMING SOON – Animation
+
+::: column.grow
+Here you can see the image of a large lighthouse. Together with a friend, you
+want to measure the height of the lighthouse, but unfortunately we cannot climb
+to the top.
+
+It turns out that, very well hidden, the diagram contains two similar triangles:
+one is formed by the lighthouse and its shadow, and one is formed by your friend
+and her shadow.
+
+Both triangles have one right angle at the bottom. The sun rays are parallel,
+which means that the other two angles at the bottom are corresponding angles,
+and also equal. By the AA condition for triangles, these two must be similar.
+
+We can easily measure the length of the shadows, and we also know the height of
+your friend. Now we can use the proportionality of sides in similar triangles
+to find the height of the lighthouse:
+
+{.todo} COMING SOON – Equation
+
+Therefore the lighthouse is 1.5m tall.
+:::
+
+---
+> id: similar-triangles-2
+
+::: column(width=320)
+{.todo} COMING SOON – Animation
+::: column.grow
+We can use the same technique to measure distances on the ground. Here we want
+to find the width of a large river. There is a big tree on one side of the
+river, and I’ve got a stick that is one meter long.
+
+Try drawing another two similar triangles in this diagram.
+
+You can mark the point along the side of the river, that lies directly on the
+line of sight from the end of the stick to the tree. Then we can measure the
+distances to the stick, and to the point directly opposite the tree.
+
+Once again, these two triangles are similar because of the AA condition. They
+both have a right angle, and on pair of opposite angles.
+
+According to the proportionality rule, this means that
+
+{.todo} COMING SOON – Equation
+
+Therefore the width of the river is 45 meters.
+:::
+
+---
+
+### Similarity on Rays
+
+Theorem: If a ray bisects an angle of a triangle, then it divides the
+opposite side into segments that are proportional to the lengths of the
+other two sides.
+
+We can extend this theorem to a situation outside of triangles where we
+have multiple parallel lines cut by transverals.
+
+Theorem: If three or more parallel lines are cut by two transversals, then they
+divide the transversals proportionally.
+
+Think about a midsegment of a triangle. A midsegment is parallel to one side of
+a triangle and divides the other two sides into congruent halves. The midsegment
+divides those two sides proportionally.
+
+Triangle Proportionality Theorem: If a line parallel to one side of a triangle
+intersects the other two sides, then it divides those sides proportionally.
+
+Triangle Proportionality Theorem Converse: If a line divides two sides of a
+triangle proportionally, then it is parallel to the third side.
+
+---
+
+### Self Similarity
+
+There are some curious mathematical shapes that are similar to a smaller part
+_of themselves_. An example is the __Sierpinksi Triangle__: the entire triangle
+is similar to any one of the smaller triangles it consists on. You could zoom
+in and infinitely many smaller and smaller triangles.
+
+Shapes with this property are called __Fractals__. They have some surprising
+and truly XXX properties, which you will learn about more in the future.
+
+---
+
+Triangles are not just useful for measuring distances. In the next course we
+will learn a lot more about triangles and their properties.
