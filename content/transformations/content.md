@@ -721,7 +721,7 @@ mutations or damage – because there is a second backup copy of every piece.
 
 ::: column.grow
 A shape has [__rotational symmetry__](gloss:rotational-symmetry) if it looks the
-same after being rotated (by less than 360°). The [center of
+same after being rotated (by an amount not equal to 360°). The [center of
 rotation](gloss:center-of-rotation) is usually just the middle of the shape.
 
 The [__order of symmetry__](gloss:order-of-symmetry) is the number of distinct
