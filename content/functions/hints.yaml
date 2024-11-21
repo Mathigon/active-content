@@ -1,0 +1,6 @@
+invalid-domain-emoji: You can't square an emoji!
+invalid-range-emoji: x^2 never equals an emoji!
+invalid-domain-negative: sqrt(x) is never negative!
+invalid-range-negative: x^2 is never negative!
+
+plot-points-more: Perfect! Add a few more

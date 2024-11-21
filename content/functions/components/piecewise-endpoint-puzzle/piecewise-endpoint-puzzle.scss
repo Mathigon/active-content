@@ -1,0 +1,56 @@
+x-piecewise-endpoint-puzzle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 2em auto;
+
+    x-coordinate-system {
+        margin: 0 auto 0 auto;
+    }
+
+    >button {
+        margin: 20px auto 2em auto;
+    }
+
+    .overlay {
+        .burst {
+            transition: 0.5s;
+            opacity: 1;
+        }
+        .burst.fade {
+            opacity: 0;
+        }
+
+        .endpoints {
+            stroke-width: 3px;
+            stroke: $red;
+            fill: transparent;
+            
+            .closed {
+                stroke: none;
+                fill: $red;
+            }
+        }
+        .segments {
+            stroke-width: 3px;
+            stroke: $red;
+            stroke-linecap: butt;
+        }
+        .strings {
+            text-anchor: middle;
+            font-size: 18px;
+            fill: $red;
+        }
+    }
+
+    .scoring-row {
+        display: flex;
+        margin-top: 20px;
+        align-items: center;
+
+        .prompt-text {
+            margin-left: 20px;
+        }
+    }
+}

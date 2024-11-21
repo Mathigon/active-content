@@ -1,0 +1,106 @@
+x-draw-graph {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2em auto;
+
+    .crosshair {
+        pointer-events: none;
+    }
+
+    x-coordinate-system {
+        margin: 0 auto;
+    }
+
+    >button {
+        margin: 20px auto 2em auto;
+    }
+    
+    .axes {
+        pointer-events: none;
+    }
+
+    .plot.solution {
+        pointer-events: none;
+        transition: 1s;
+    }
+    .plot.solution[show=true] {
+        opacity: 1;
+    }
+    .plot.solution[show=false] {
+        opacity: 0;
+    }
+
+    .overlay {
+        .hints {
+            pointer-events: none;
+            
+            >* {
+                transition: 2s;
+                opacity: 0;
+            }
+            >*[show=true] {
+                opacity: 1;
+            }
+
+            .hint-line {
+                stroke-width: 2px;
+                stroke: $blue;
+                stroke-dasharray: 6 4;
+            }
+
+            .hint-circle {
+              fill: $blue;
+            }
+        }
+        .plot-points {
+            circle {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .labels {
+        pointer-events: none;
+    }
+
+    .scoring-row {
+        display: flex;
+        margin-top: 20px;
+        align-items: center;
+
+        .judge-text {
+            margin-left: 20px;
+        }
+
+        .scores {
+            display: flex;
+
+            >div {
+                display: flex;
+                margin-left: 20px;
+                justify-content: center;
+                background-color: $light-grey;
+
+                min-width: 50px;
+                min-height: 50px;
+
+                div {
+                    align-self: center;
+                }
+            }
+        }
+
+        .scores[show=true] {
+            >div {
+                transform: rotateY(0);
+            }
+        }
+
+        .scores[show=false] {
+            >div {
+                transform: rotateY(90deg);
+            }
+        }
+    }
+}

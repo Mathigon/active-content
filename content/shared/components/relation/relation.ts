@@ -4,6 +4,7 @@
 // =============================================================================
 
 
+import {Step} from '@mathigon/studio';
 import {$N, CustomElementView, ElementView, hover, register, slide, SVGParentView, SVGView} from '@mathigon/boost';
 import {Point} from '@mathigon/euclid';
 import template from './relation.pug';
@@ -14,20 +15,45 @@ type Match = {
   matched: boolean
 }
 
+type Connection = {
+  input: number
+  output: number
+  line: SVGView
+}
+
 @register('x-relation', {template})
 export class Relation extends CustomElementView {
   private $inputs!: ElementView[];
   private $outputs!: ElementView[];
+  private $lines!: SVGView[];
+  private $step?: Step;
 
+  private requireMatch = false;
   private lastWidth = 0;
   private inputTargets: Point[] = [];
   private outputTargets: Point[] = [];
   private matches: Match[] = [];
+  private connections: Connection[] = [];
 
   ready() {
     const $svg = this.$('svg.connections') as SVGParentView;
     this.$inputs = this.$$('.domain .item');
     this.$outputs = this.$$('.range .item');
+
+    this.requireMatch = this.attr('requireMatch') == 'true';
+
+    function selectRandomElement(elements: ElementView[]) {
+      return elements[Math.floor(Math.random() * elements.length)];
+    }
+
+    if (this.attr('randomize') == 'true') {
+      for (const $input of this.$inputs) {
+        $input.insertAfter(selectRandomElement(this.$inputs));
+      }
+      for (const $output of this.$outputs) {
+        $output.insertAfter(selectRandomElement(this.$outputs));
+      }
+    }
 
     this.resize();
 
@@ -59,19 +85,57 @@ export class Relation extends CustomElementView {
             const $target = this.$outputs[activeTarget];
             $target.removeClass('active');
 
-            if ($target.attr('name') == this.matches[i].name) {
+            const extantConnection = this.connections.find(connection => connection.input == i && connection.output == activeTarget);
 
-              this.trigger('correct', comment);
-              this.matches[i].matched = true;
+            if (extantConnection) {
+              this.connections.splice(this.connections.indexOf(extantConnection), 1);
+              extantConnection.line.remove();
+              $currentLine!.remove();
 
-              if (this.matches.every(m => m.matched == true)) {
-                this.trigger('complete');
+              if ($target.attr('name') == this.matches[i].name) {
+                this.matches[i].matched = false;
               }
 
+              if (this.matches.every(m => m.matched == true)) {
+                if (this.$step) {
+                  this.$step.complete();
+                }
+              }
             } else {
-              this.trigger('incorrect');
-            }
+              const connection = {
+                input: i,
+                output: activeTarget,
+                line: $currentLine!
+              };
 
+              if ($target.attr('name') == this.matches[i].name) {
+                if (this.$step) {
+                  this.$step.addHint('correct');
+                }
+
+                this.matches[i].matched = true;
+
+                if (this.matches.every(m => m.matched == true)) {
+                  if (this.$step) {
+                    this.$step.complete();
+                  }
+                }
+
+                this.connections.push(connection);
+              } else if (this.requireMatch) {
+                if (this.$step) {
+                  this.$step.addHint('incorrect');
+                }
+
+                $currentLine!.exit('draw', 300, 0, true);
+              } else {
+                if (this.$step) {
+                  this.$step.addHint('incorrect');
+                }
+
+                this.connections.push(connection);
+              }
+            }
           } else {
             $currentLine!.exit('draw', 300, 0, true);
           }
@@ -118,5 +182,9 @@ export class Relation extends CustomElementView {
     });
 
     // TODO Update existing connections
+  }
+
+  bindStep($step: Step) {
+    this.$step = $step;
   }
 }

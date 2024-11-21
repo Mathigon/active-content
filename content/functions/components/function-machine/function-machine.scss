@@ -1,0 +1,44 @@
+// =============================================================================
+// Function Machine Component
+// (c) Mathigon
+// =============================================================================
+
+x-function-machine {
+  user-select: none;
+  font-size: 24px;
+
+  svg {
+      margin-bottom: 18px;
+  }
+
+  .input, .output, .operation {
+    &.active { background: mix($grey-background, $border-light); }
+    text, image {
+      width: 100%;
+      pointer-events: none;
+      text-anchor: middle;
+      // alignment-baseline: middle;
+    }
+  }
+
+  .input, .output {
+      rect {
+        fill: $grey-background;
+        stroke-width: 2px;
+        stroke: $border-light;
+        stroke-dasharray: 4px, 4px;
+      }
+  }
+
+  .operation text {
+      fill: #FFF;
+  }
+
+  .operation rect {
+      fill: $medium-grey;
+      stroke-width: 2px;
+      stroke: $dark-grey;
+  }
+
+  .input { cursor: pointer; }
+}

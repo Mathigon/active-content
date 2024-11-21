@@ -1,0 +1,34 @@
+x-pong {
+    .paddle {
+        line {
+            stroke-width: 8px;
+            stroke-linecap: round;
+        }
+    }
+
+    .ball {
+        fill: $red;
+    }
+
+    .arrow {
+        stroke: $blue;
+        stroke-width: 3px;
+    }
+
+    .bounce {
+        stroke-width: 2px;
+        stroke: $blue;
+    }
+
+    .bounce.hide {
+        display: none;
+    }
+}
+
+x-pong.launched {
+    pointer-events: none;
+
+    .arrow {
+        display: none;
+    }
+}

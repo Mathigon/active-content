@@ -6,10 +6,322 @@
 
 @import "@mathigon/studio/frontend/styles/variables";
 @import "../shared/components/relation/relation";
+@import "./components/function-machine/function-machine";
+@import "./components/video-graph/video-graph";
+@import "./components/card-graph/card-graph";
+@import "./components/draw-graph/draw-graph";
+@import "./components/pong/pong";
+@import "./components/piecewise-endpoint-puzzle/piecewise-endpoint-puzzle";
 
+x-coordinate-system {
+  line,path.red { stroke: $red; }
+  line,path.green { stroke: $green; }
+  line,path.blue { stroke: $blue; }
+  line,path.yellow { stroke: $yellow; }
+  line,path.purple { stroke: $purple; }
+  line,path.orange { stroke: $orange; }
+}
 
 .btn.clear {
   position: absolute;
   bottom: 6px;
   right: 6px;
+}
+
+.burst { fill: none; stroke: $dark-grey; }
+.burst.correct { stroke: $green; }
+.burst.incorrect { stroke: $red; }
+.burst circle { stroke: none; }
+
+.verticalLine line {
+  stroke: $blue;
+  stroke-width: 4px;
+}
+
+.verticalLine text {
+  color: $blue;
+}
+
+.vault-graph .overlay circle {
+  stroke-width: 3px;
+  stroke: $green;
+  fill: none;
+}
+
+#graph-match-relation x-coordinate-system {
+  margin: 20px 0;
+}
+
+line.slope-measurement {
+  stroke: $blue;
+  stroke-width: 3;
+  stroke-dasharray: 2 3;
+}
+
+text.slope-measurement {
+  font-size: 18px;
+  text-anchor: center;
+}
+
+circle.slope-measurement {
+  stroke: none;
+  fill: $green;
+}
+
+#multi-swimmer-graph svg .plot {
+  g:nth-child(1) {
+    path {
+      stroke: $red;
+    }
+  }
+  g:nth-child(2) {
+    path {
+      stroke: $blue;
+    }
+  }
+  g:nth-child(3) {
+    path {
+      stroke: $green;
+    }
+  }
+  g:nth-child(4) {
+    path {
+      stroke: $purple;
+    }
+  }
+}
+
+#time-variable-text {
+  font-size: 24px;
+}
+
+#pole-vault-video {
+  margin-bottom: 2em;
+}
+
+x-draw-graph {
+  #hint-bar {
+    stroke: mix($dark-grey, $medium-grey, 50%);
+    stroke-width: 6px;
+  }
+
+  #hint-landing {
+    fill: mix($blue, $dark-grey, 50%);
+  }
+}
+
+line#time-line {
+  stroke: $medium-grey;
+  stroke-width: 2px;
+  stroke-dasharray: 4;
+}
+
+#running-video-graph>div {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px 0 40px 0;
+}
+
+#running-video-graph x-coordinate-system {
+  margin: 0;
+}
+
+#running-video-graph x-coordinate-system svg {
+  overflow: visible;
+}
+
+.runner-name-key {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 20px;
+
+  >:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  >div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    :not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
+
+.runner-name-key img {
+  width: 48px;
+  height: 48px;
+}
+
+#rogers-slope-graph {
+  .plot path {
+    stroke: $blue;
+  }
+  .crosshair {
+    circle {
+      stroke: $blue;
+    }
+    text {
+      fill: $blue;
+    }
+  }
+}
+
+#boufaarirane-slope-graph {
+  .plot path {
+    stroke: $green;
+  }
+  .crosshair {
+    circle {
+      stroke: $green;
+    }
+    text {
+      fill: $green;
+    }
+  }
+}
+
+#runner-card-graph {
+  >div {
+    margin-top: 2em;
+
+    display: flex;
+    justify-content: center;
+
+    >div {
+      display: flex;
+
+      >:last-child {
+        margin-left: 10px;
+      }
+    }
+
+    >div:not(:last-child) {
+      margin-right: 40px;
+    }
+  }
+
+  x-coordinate-system {
+    margin: 5px auto 2em auto;
+  }
+}
+
+.piecewise-function-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+x-picker.graphPicker {
+  .item {
+    width: auto;
+  }
+}
+
+#piecewise-description-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 285px;
+}
+
+#piecewise-graph-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 2em 0;
+}
+
+x-coordinate-system.piecewise-cases {
+  .plot {
+    line {
+      stroke-width: 3px;
+    }
+    #line1 {
+      stroke: $red;
+    }
+    #line2 {
+      stroke: $blue;
+    }
+    #line3 {
+      stroke: $green;
+    }
+  }
+}
+
+x-coordinate-system.piecewise-step {
+  svg {
+    overflow: visible;
+  }
+
+  .overlay>line.vertical-line {
+    stroke-width: 2px;
+    stroke: black;
+  }
+
+  .overlay>.plot {
+    stroke-width: 2px;
+
+    text {
+      stroke-width: 0;
+      font-size: 16px;
+      text-anchor: middle;
+    }
+
+    .red {
+      stroke: $red;
+      fill: $red;
+    }
+    .orange {
+      stroke: $orange;
+      fill: $orange;
+    }
+    .blue {
+      stroke: $blue;
+      fill: $blue;
+    }
+    .green {
+      stroke: $green;
+      fill: $green;
+    }
+
+    circle.open {
+      fill: none;
+    }
+  }
+}
+
+x-step#piecewise-data {
+  .row.padded {
+    margin-bottom: 0;
+  }
+  
+  x-coordinate-system {
+    margin-top: 0;
+  }
+}
+
+x-draw-graph#draw-triathlon-graph {
+  line.transition-line {
+    stroke: $light-grey;
+    stroke-width: 2px;
+    stroke-dasharray: 6 4;
+  }
+}
+
+x-picker x-coordinate-system {
+  margin: 0;
+}
+
+x-step#triathlon-graph {
+  .row.padded {
+    margin-bottom: 0;
+  }
+
+  x-draw-graph {
+    margin-top: 0;
+  }
 }

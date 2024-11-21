@@ -1,0 +1,86 @@
+
+x-card-graph svg {
+    overflow: visible;
+}
+
+x-card-graph .ranges {
+    stroke-width: 2px;
+    stroke: $medium-grey;
+    stroke-dasharray: 4;
+
+    .range-tick,.range-line {
+        transition: 0.2s;
+    }
+}
+
+x-card-graph .ranges:not(.hover) {
+    .range-line {
+        opacity: 0;
+    }
+    .range-tick {
+        opacity: 1;
+    }
+}
+
+x-card-graph .ranges.hover {
+    .range-lines:not(.hover) line {
+        opacity: 0;
+    }
+    .range-lines.hover {
+        .range-line {
+            opacity: 1;
+        }
+        .range-tick {
+            opacity: 0;
+        }
+    }
+}
+
+x-card-graph .dot {
+    stroke-width: 2px;
+    stroke: $medium-grey;
+    fill: $light-grey;
+}
+
+x-card-graph .card-content {
+    cursor: pointer;
+    transition: 0.2s;
+
+    .card-circle {
+        fill: none;
+        stroke: $medium-grey;
+        stroke-width: 2px;
+    }
+
+    .card-fill {
+        fill: $grey-background;
+        stroke: none;
+    }
+
+    text {
+        font-size: 12px;
+    }
+}
+
+x-card-graph .card-instruction {
+    fill: $medium-grey;
+    font-style: italic;
+    transition: 0.2s;
+    font-size: 22px;
+}
+
+x-card-graph .card-description {
+    transition: 0.2s;
+    font-size: 22px;
+}
+
+x-card-graph .card-outline {
+    fill: none;
+    stroke: $light-grey;
+    stroke-width: 2px;
+    stroke-dasharray: 4;
+}
+
+x-card-graph svg .labels {
+  pointer-events: none;
+}
