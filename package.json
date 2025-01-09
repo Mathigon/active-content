@@ -30,7 +30,7 @@
     "@types/topojson": "3.2.3",
     "npm-run-all2": "6.2.2",
     "ts-node": "10.9.2",
-    "typescript": "5.5.4"
+    "typescript": "5.7.3"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "6.21.0",
